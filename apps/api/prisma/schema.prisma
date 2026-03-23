@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model QueryLog {
+  id           String   @id @default(cuid())
+  queryHash    String
+  queryPayload Json
+  responseSize Int
+  latencyMs    Int
+  risk         Float
+  cost         Float
+  flags        Json
+  createdAt    DateTime @default(now())
+
+  @@index([createdAt])
+}
